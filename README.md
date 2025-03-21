@@ -1,7 +1,7 @@
 # COMP3004-W25
-Our COMP3004 team assignment
-Team Members 
-Daniel B. Solomon
-Bradley Nguyen
-Shane Sibley-Felstead
-Sabateesh Sivakumar
+
+## Team 2 Members
+Daniel B. Solomon - 101075089
+Bradley Nguyen - #
+Shane Sibley-Felstead - #
+Sabateesh Sivakumar - #

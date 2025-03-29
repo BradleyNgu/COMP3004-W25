@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/logo.png</file>
+        <file>images/battery-full.png</file>
+        <file>images/battery-half.png</file>
+        <file>images/battery-low.png</file>
+        <file>images/insulin-full.png</file>
+        <file>images/insulin-half.png</file>
+        <file>images/insulin-low.png</file>
+        <file>images/bolus-icon.png</file>
+        <file>images/options-icon.png</file>
+        <file>images/settings-icon.png</file>
+        <file>images/arrow-up.png</file>
+        <file>images/arrow-down.png</file>
+        <file>images/arrow-flat.png</file>
+        <file>styles/dark-style.qss</file>
+    </qresource>
+</RCC>

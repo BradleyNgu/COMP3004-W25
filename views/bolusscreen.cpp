@@ -375,7 +375,7 @@ void BolusScreen::on_durationSpinBox_valueChanged(int value)
 
 void BolusScreen::paintEvent(QPaintEvent *event)
 {
-    Q_UNUSED(value);
+    Q_UNUSED(event);
     // Draw the widget background and style
     QStyleOption opt;
     opt.init(this);

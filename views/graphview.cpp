@@ -104,6 +104,7 @@ QSize GraphView::minimumSizeHint() const
 
 void GraphView::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event);
     // Draw base widget
     QStyleOption opt;
     opt.init(this);

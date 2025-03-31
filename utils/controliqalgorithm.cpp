@@ -20,6 +20,8 @@ double ControlIQAlgorithm::calculateBasalAdjustment(double currentGlucose,
                                                   double targetGlucose,
                                                   double insulinOnBoard)
 {
+    Q_UNUSED(targetGlucose);
+    Q_UNUSED(insulinOnBoard);
     // Simplified algorithm that returns predetermined adjustments based on glucose ranges
     
     // Very low glucose - suspend insulin

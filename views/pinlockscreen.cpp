@@ -309,6 +309,7 @@ void PinLockScreen::lockoutAfterFailedAttempts()
 
 void PinLockScreen::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event);
     QStyleOption opt;
     opt.init(this);
     QPainter painter(this);

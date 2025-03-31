@@ -244,6 +244,7 @@ void PinSettingsScreen::onBackButtonClicked()
 
 void PinSettingsScreen::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event);
     QStyleOption opt;
     opt.init(this);
     QPainter painter(this);

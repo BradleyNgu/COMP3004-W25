@@ -42,10 +42,12 @@ void AlertController::setPumpModel(PumpModel *model)
 
 void AlertController::setGlucoseModel(GlucoseModel *model)
 {
+
     glucoseModel = model;
     
     if (glucoseModel) {
         connect(glucoseModel, &GlucoseModel::newReading, this, [this](double value, const QDateTime &) {
+            Q_UNUSED(value);
             checkGlucoseAlerts();
         });
     }

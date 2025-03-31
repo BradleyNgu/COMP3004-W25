@@ -137,6 +137,7 @@ double ProfileController::calculateBasalRate(const QString &profileName, const Q
 
 double ProfileController::calculateCarbRatio(const QString &profileName, const QDateTime &time) const
 {
+    Q_UNUSED(time);
     if (!profileModel) {
         return 0.0;
     }
@@ -148,6 +149,7 @@ double ProfileController::calculateCarbRatio(const QString &profileName, const Q
 
 double ProfileController::calculateCorrectionFactor(const QString &profileName, const QDateTime &time) const
 {
+    Q_UNUSED(time);
     if (!profileModel) {
         return 0.0;
     }
@@ -159,6 +161,7 @@ double ProfileController::calculateCorrectionFactor(const QString &profileName, 
 
 double ProfileController::calculateTargetGlucose(const QString &profileName, const QDateTime &time) const
 {
+    Q_UNUSED(time);
     if (!profileModel) {
         return 0.0;
     }

@@ -14,15 +14,13 @@
 #include <cstdlib> // For rand() and RAND_MAX
 #include <ctime>   // For time()
 #include <algorithm>
+#include <QRandomGenerator>
 
 HomeScreen::HomeScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::HomeScreen)
 {
     ui->setupUi(this);
-    
-    // Initialize random seed for random number generation
-    qsrand(static_cast<unsigned int>(time(nullptr)));
     
     // Set the dark background color for entire screen
     setStyleSheet("QWidget { background-color: #222222; }");
@@ -361,7 +359,8 @@ void HomeScreen::generateSampleGraphData()
         }
         
         // Add small random noise using qrand() instead of QRandomGenerator
-        double noise = (qrand() / static_cast<double>(RAND_MAX) - 0.5) * 0.3;
+        double noise = (QRandomGenerator::global()->generateDouble() - 0.5) * 0.3;
+
         double value = patternValue + noise;
         
         // Ensure within realistic range

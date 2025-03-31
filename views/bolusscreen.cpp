@@ -314,6 +314,7 @@ bool BolusScreen::validateBolusSettings()
 void BolusScreen::on_extendedCheckBox_stateChanged(int state)
 {
     // Show or hide duration controls based on extended bolus checkbox
+    Q_UNUSED(state);
     updateExtendedBolusVisibility();
 }
 
@@ -350,26 +351,31 @@ void BolusScreen::on_deliverButton_clicked()
 
 void BolusScreen::on_glucoseSpinBox_valueChanged(double value)
 {
+    Q_UNUSED(value);
     calculateSuggestedBolus();
 }
 
 void BolusScreen::on_carbsSpinBox_valueChanged(double value)
 {
+    Q_UNUSED(value);
     calculateSuggestedBolus();
 }
 
 void BolusScreen::on_bolusSpinBox_valueChanged(double value)
 {
+    Q_UNUSED(value);
     // Nothing special to do here, just track the value
 }
 
 void BolusScreen::on_durationSpinBox_valueChanged(int value)
 {
+    Q_UNUSED(value);
     // Nothing special to do here, just track the value
 }
 
 void BolusScreen::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(value);
     // Draw the widget background and style
     QStyleOption opt;
     opt.init(this);

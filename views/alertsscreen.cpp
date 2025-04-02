@@ -78,6 +78,19 @@ void AlertsScreen::setupUi()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(16, 16, 16, 16);
     mainLayout->setSpacing(12);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setAlignment(Qt::AlignRight);
+
+    homeButton = new QPushButton("T");
+    homeButton->setStyleSheet(
+        "QPushButton { background-color: transparent; color: #00B2FF; font-size: 20px; font-weight: bold; border: none; }"
+        "QPushButton:pressed { color: #0077CC; }"
+    );
+    homeButton->setFixedSize(40, 40);
+
+    topLayout->addWidget(homeButton);
+    mainLayout->addLayout(topLayout);
     
     // Title
     titleLabel = new QLabel("Alerts & Reminders");
@@ -436,6 +449,7 @@ void AlertsScreen::connectSignals()
     connect(clearAllAlertsButton, &QPushButton::clicked, this, &AlertsScreen::onClearAllAlertsButtonClicked);
     connect(setReminderButton, &QPushButton::clicked, this, &AlertsScreen::onSetReminderButtonClicked);
     connect(deleteReminderButton, &QPushButton::clicked, this, &AlertsScreen::onDeleteReminderButtonClicked);
+    connect(homeButton, &QPushButton::clicked, this, &AlertsScreen::onHomeButtonClicked);
     
     // Connect settings changes
     connect(enableAlertsCheckBox, &QCheckBox::toggled, this, &AlertsScreen::onEnableAlertsToggled);
@@ -911,4 +925,9 @@ void AlertsScreen::paintEvent(QPaintEvent * /* event */)
     opt.init(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}
+void AlertsScreen::onHomeButtonClicked()
+{
+    emit homeButtonClicked();
+    emit backButtonClicked();
 }

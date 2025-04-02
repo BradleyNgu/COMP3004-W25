@@ -416,7 +416,7 @@ void ControlIQScreen::paintEvent(QPaintEvent * /* event */)
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 }
-cppCopyvoid ControlIQScreen::onHomeButtonClicked()
+void ControlIQScreen::onHomeButtonClicked()
 {
     emit homeButtonClicked();
     emit backButtonClicked();

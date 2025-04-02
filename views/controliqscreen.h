@@ -30,6 +30,7 @@ public:
     
 signals:
     void backButtonClicked();
+    void homeButtonClicked();
     
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -37,6 +38,7 @@ protected:
 private slots:
     void onEnableControlIQToggled(bool checked);
     void saveSettings();
+    void onHomeButtonClicked();
     
 private:
     Ui::ControlIQScreen *ui;
@@ -60,6 +62,7 @@ private:
     QCheckBox *hypoPreventionCheckBox;
     QPushButton *saveButton;
     QPushButton *backButton;
+    QPushButton *homeButton;
     
     void setupUi();
     void connectSignals();

@@ -26,7 +26,7 @@ public:
 signals:
     void backButtonClicked();
     void bolusRequested(double units, bool extended, int duration);
-    
+    void homeButtonClicked();
 protected:
     void paintEvent(QPaintEvent *event) override;
     
@@ -38,7 +38,7 @@ private slots:
     void on_bolusSpinBox_valueChanged(double value);
     void on_extendedCheckBox_stateChanged(int state);
     void on_durationSpinBox_valueChanged(int value);
-    
+    void on_homeButton_clicked();
 private:
     Ui::BolusScreen *ui;
     
@@ -72,6 +72,7 @@ private:
     QPushButton *deliverButton;
     QPushButton *backButton;
     QWidget *extendedOptionsWidget;  // Added this missing declaration
+    QPushButton *homeButton;
 };
 
 #endif // BOLUSSCREEN_H

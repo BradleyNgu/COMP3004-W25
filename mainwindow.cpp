@@ -190,6 +190,14 @@ void MainWindow::connectSignals()
     
     connect(homeScreen, &HomeScreen::controlIQButtonClicked, this, &MainWindow::showControlIQScreen);
     
+    // Connect navigation signals from other screens
+    connect(bolusScreen, &BolusScreen::backButtonClicked, this, &MainWindow::showOptionsScreen);
+    connect(profileScreen, &ProfileScreen::backButtonClicked, this, &MainWindow::showOptionsScreen);
+    connect(optionsScreen, &OptionsScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(historyScreen, &HistoryScreen::backButtonClicked, this, &MainWindow::showOptionsScreen);
+    connect(controlIQScreen, &ControlIQScreen::backButtonClicked, this, &MainWindow::showOptionsScreen);
+    connect(alertsScreen, &AlertsScreen::backButtonClicked, this, &MainWindow::showOptionsScreen);
+    
     // Connect PIN screen signals
     connect(pinLockScreen, &PinLockScreen::pinAccepted, this, [this]() {
         isLocked = false;

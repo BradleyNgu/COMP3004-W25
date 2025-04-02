@@ -558,7 +558,7 @@ void ProfileScreen::paintEvent(QPaintEvent * /* event */)
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 }
-cppCopyvoid ProfileScreen::on_homeButton_clicked()
+void ProfileScreen::on_homeButton_clicked()
 {
     emit homeButtonClicked();
     emit backButtonClicked();

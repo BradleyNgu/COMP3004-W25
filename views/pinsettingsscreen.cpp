@@ -138,7 +138,7 @@ void PinSettingsScreen::connectSignals()
     connect(changeCurrentPinButton, &QPushButton::clicked, this, &PinSettingsScreen::onChangeCurrentPinClicked);
     connect(setNewPinButton, &QPushButton::clicked, this, &PinSettingsScreen::onSetNewPinClicked);
     connect(backButton, &QPushButton::clicked, this, &PinSettingsScreen::onBackButtonClicked);
-    connect(homeButton, &QPushButton::clicked, this, &AlertsScreen::onHomeButtonClicked);
+    connect(homeButton, &QPushButton::clicked, this, &PinSettingsScreen::onHomeButtonClicked);
 }
 
 void PinSettingsScreen::loadSettings()

@@ -246,6 +246,13 @@ void MainWindow::connectSignals()
     connect(profileScreen, &ProfileScreen::profileUpdated, pumpController, &PumpController::updateProfile);
     connect(profileScreen, &ProfileScreen::profileDeleted, pumpController, &PumpController::deleteProfile);
     connect(profileScreen, &ProfileScreen::profileActivated, pumpController, &PumpController::setActiveProfile);
+
+    connect(bolusScreen, &BolusScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(profileScreen, &ProfileScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(optionsScreen, &OptionsScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(historyScreen, &HistoryScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(controlIQScreen, &ControlIQScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(alertsScreen, &AlertsScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
 }
 
 void MainWindow::setScaleFactor(double factor)

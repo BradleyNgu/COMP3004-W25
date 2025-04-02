@@ -222,5 +222,4 @@ void OptionsScreen::paintEvent(QPaintEvent * /* event */)
 void OptionsScreen::onHomeButtonClicked()
 {
     emit homeButtonClicked();
-    emit backButtonClicked();
 }

@@ -419,5 +419,4 @@ void ControlIQScreen::paintEvent(QPaintEvent * /* event */)
 void ControlIQScreen::onHomeButtonClicked()
 {
     emit homeButtonClicked();
-    emit backButtonClicked();
 }

@@ -301,7 +301,7 @@ void HistoryScreen::setupUi()
 void HistoryScreen::connectSignals()
 {
     connect(backButton, &QPushButton::clicked, this, &HistoryScreen::backButtonClicked);
-    connect(homeButton, &QPushButton::clicked, this, [this]() {emit backButtonClicked();
+    connect(homeButton, &QPushButton::clicked, this, [this]() {emit homeButtonClicked();
     });
 }
 

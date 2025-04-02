@@ -929,5 +929,4 @@ void AlertsScreen::paintEvent(QPaintEvent * /* event */)
 void AlertsScreen::onHomeButtonClicked()
 {
     emit homeButtonClicked();
-    emit backButtonClicked();
 }

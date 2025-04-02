@@ -400,5 +400,4 @@ void BolusScreen::paintEvent(QPaintEvent *event)
 void BolusScreen::on_homeButton_clicked()
 {
     emit homeButtonClicked();
-    emit backButtonClicked();
 }

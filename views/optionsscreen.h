@@ -27,6 +27,7 @@ signals:
     void alertsButtonClicked();
     void controlIQButtonClicked();
     void securitySettingsButtonClicked();
+    void homeButtonClicked();
     
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -40,6 +41,7 @@ private slots:
     void onHistoryButtonClicked();
     void onControlIQButtonClicked();
     void onSecuritySettingsButtonClicked();
+    void onHomeButtonClicked();
     
 private:
     Ui::OptionsScreen *ui;
@@ -57,6 +59,7 @@ private:
     QPushButton *controlIQButton;
     QPushButton *securitySettingsButton;
     QPushButton *backButton;
+    QPushButton *homeButton;
 };
 
 #endif // OPTIONSSCREEN_H

@@ -63,7 +63,7 @@ private:
     QRadioButton *insulinRadio;
     QRadioButton *combinedRadio;
     QPushButton *backButton;
-    PushButton *homeButton;
+    QPushButton *homeButton;
     
     void setupUi();
     void connectSignals();

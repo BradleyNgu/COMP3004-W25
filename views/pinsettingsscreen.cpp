@@ -30,6 +30,19 @@ void PinSettingsScreen::setupUi()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(20, 20, 20, 20);
     mainLayout->setSpacing(15);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setAlignment(Qt::AlignRight);
+
+    homeButton = new QPushButton("T");
+    homeButton->setStyleSheet(
+        "QPushButton { background-color: transparent; color: #00B2FF; font-size: 20px; font-weight: bold; border: none; }"
+        "QPushButton:pressed { color: #0077CC; }"
+    );
+    homeButton->setFixedSize(40, 40);
+
+    topLayout->addWidget(homeButton);
+    mainLayout->addLayout(topLayout);
     
     // Title
     titleLabel = new QLabel("PIN Security Settings");
@@ -125,6 +138,7 @@ void PinSettingsScreen::connectSignals()
     connect(changeCurrentPinButton, &QPushButton::clicked, this, &PinSettingsScreen::onChangeCurrentPinClicked);
     connect(setNewPinButton, &QPushButton::clicked, this, &PinSettingsScreen::onSetNewPinClicked);
     connect(backButton, &QPushButton::clicked, this, &PinSettingsScreen::onBackButtonClicked);
+    connect(homeButton, &QPushButton::clicked, this, &AlertsScreen::onHomeButtonClicked);
 }
 
 void PinSettingsScreen::loadSettings()
@@ -249,4 +263,8 @@ void PinSettingsScreen::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}
+void PinSettingsScreen::onHomeButtonClicked()
+{
+    emit homeButtonClicked();
 }

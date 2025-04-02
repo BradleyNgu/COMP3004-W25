@@ -20,6 +20,7 @@ public:
     
 signals:
     void backButtonClicked();
+    void homeButtonClicked();
     
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -29,6 +30,7 @@ private slots:
     void onChangeCurrentPinClicked();
     void onSetNewPinClicked();
     void onBackButtonClicked();
+    void onHomeButtonClicked();
     
 private:
     QLabel *titleLabel;
@@ -36,6 +38,7 @@ private:
     QPushButton *changeCurrentPinButton;
     QPushButton *setNewPinButton;
     QPushButton *backButton;
+    QPushButton *homeButton;
     
     // New PIN input fields
     QLabel *newPinLabel;

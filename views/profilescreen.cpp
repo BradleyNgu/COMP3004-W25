@@ -561,5 +561,4 @@ void ProfileScreen::paintEvent(QPaintEvent * /* event */)
 void ProfileScreen::on_homeButton_clicked()
 {
     emit homeButtonClicked();
-    emit backButtonClicked();
 }

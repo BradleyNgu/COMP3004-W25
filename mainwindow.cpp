@@ -197,7 +197,7 @@ void MainWindow::connectSignals()
     connect(historyScreen, &HistoryScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
     connect(controlIQScreen, &ControlIQScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
     connect(alertsScreen, &AlertsScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    connect(pinSettingScreen, &PinSettingsScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(pinSettingsScreen, &PinSettingsScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
     
     // Connect PIN screen signals
     connect(pinLockScreen, &PinLockScreen::pinAccepted, this, [this]() {

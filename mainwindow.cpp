@@ -190,15 +190,6 @@ void MainWindow::connectSignals()
     
     connect(homeScreen, &HomeScreen::controlIQButtonClicked, this, &MainWindow::showControlIQScreen);
     
-    // Connect navigation signals from other screens
-    connect(bolusScreen, &BolusScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    connect(profileScreen, &ProfileScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    connect(optionsScreen, &OptionsScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    connect(historyScreen, &HistoryScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    connect(controlIQScreen, &ControlIQScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    connect(alertsScreen, &AlertsScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    connect(pinSettingsScreen, &PinSettingsScreen::backButtonClicked, this, &MainWindow::showHomeScreen);
-    
     // Connect PIN screen signals
     connect(pinLockScreen, &PinLockScreen::pinAccepted, this, [this]() {
         isLocked = false;
@@ -254,6 +245,7 @@ void MainWindow::connectSignals()
     connect(historyScreen, &HistoryScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
     connect(controlIQScreen, &ControlIQScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
     connect(alertsScreen, &AlertsScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
+    connect(pinSettingsScreen, &PinSettingsScreen::homeButtonClicked, this, &MainWindow::showHomeScreen);
 }
 
 void MainWindow::setScaleFactor(double factor)

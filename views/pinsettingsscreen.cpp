@@ -255,6 +255,10 @@ void PinSettingsScreen::onBackButtonClicked()
 {
     emit backButtonClicked();
 }
+void PinSettingsScreen::onHomeButtonClicked()
+{
+    emit homeButtonClicked();
+}
 
 void PinSettingsScreen::paintEvent(QPaintEvent *event)
 {
@@ -263,8 +267,4 @@ void PinSettingsScreen::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
-}
-void PinSettingsScreen::onHomeButtonClicked()
-{
-    emit homeButtonClicked();
 }

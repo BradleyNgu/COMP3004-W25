@@ -382,9 +382,8 @@ void HomeScreen::updateFontSizes()
     dateLabel->setStyleSheet(QString("color: white; font-size: %1px;").arg(statusFontSize - 2));
     batteryLabel->setStyleSheet(QString("color: #4CD964; font-size: %1px; font-weight: bold;").arg(statusFontSize - 2));
     insulinLabel->setStyleSheet(QString("color: #00B2FF; font-size: %1px; font-weight: bold;").arg(statusFontSize - 2));
-    cgmIcon->setStyleSheet(QString("color: white; font-size: %1px; font-weight: bold;").arg(statusFontSize));
-    dropIcon->setStyleSheet(QString("color: #00B2FF; font-size: %1px; font-weight: bold;").arg(statusFontSize + 2));
-    bluetoothIcon->setStyleSheet(QString("color: #00B2FF; font-size: %1px; font-weight: bold;").arg(statusFontSize));
+    tandemLogoIcon>setStyleSheet(QString("color: white; font-size: %1px; font-weight: bold;").arg(statusFontSize));
+
     
     // Glucose display
     int glucoseFontSize = baseFontSize * 3;

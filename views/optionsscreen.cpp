@@ -87,7 +87,7 @@ void OptionsScreen::setupUi()
     stopInsulinButton->setStyleSheet(buttonStyle);
     stopInsulinButton->setMinimumHeight(50);
     
-    alertsButton = new QPushButton("Alerts & Reminders");
+    alertsButton = new QPushButton("Alerts and Reminders");
     alertsButton->setStyleSheet(buttonStyle);
     alertsButton->setMinimumHeight(50);
     

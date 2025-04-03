@@ -27,6 +27,7 @@ public:
     
 signals:
     void backButtonClicked();
+    void homeButtonClicked();
     void profileCreated(const Profile &profile);
     void profileUpdated(const QString &name, const Profile &profile);
     void profileDeleted(const QString &name);
@@ -44,6 +45,7 @@ private slots:
     void on_profilesList_currentRowChanged(int currentRow);
     void on_saveProfileButton_clicked();
     void on_cancelEditButton_clicked();
+    void on_homeButton_clicked();
     
 private:
     Ui::ProfileScreen *ui;
@@ -61,6 +63,7 @@ private:
     QPushButton *deleteProfileButton;
     QPushButton *activateProfileButton;
     QPushButton *backButton;
+    QPushButton *homeButton;
     
     // Edit form elements
     QWidget *editFormContainer;

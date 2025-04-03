@@ -58,6 +58,19 @@ void HistoryScreen::setupUi()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(16, 16, 16, 16);
     mainLayout->setSpacing(12);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setAlignment(Qt::AlignRight);
+
+    homeButton = new QPushButton("T");
+    homeButton->setStyleSheet(
+        "QPushButton { background-color: transparent; color: #00B2FF; font-size: 20px; font-weight: bold; border: none; }"
+        "QPushButton:pressed { color: #0077CC; }"
+    );
+    homeButton->setFixedSize(40, 40);
+
+    topLayout->addWidget(homeButton);
+    mainLayout->addLayout(topLayout);
     
     // Title
     titleLabel = new QLabel("History");
@@ -288,6 +301,8 @@ void HistoryScreen::setupUi()
 void HistoryScreen::connectSignals()
 {
     connect(backButton, &QPushButton::clicked, this, &HistoryScreen::backButtonClicked);
+    connect(homeButton, &QPushButton::clicked, this, [this]() {emit homeButtonClicked();
+    });
 }
 
 void HistoryScreen::updateHistoryData()

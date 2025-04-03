@@ -85,9 +85,7 @@ private:
     QLabel *insulinLabel;
     
     // Status icons
-    QLabel *cgmIcon;
-    QLabel *dropIcon;
-    QLabel *bluetoothIcon;
+    QLabel *tandemLogoIcon;
     
     // Graph and glucose display
     GraphView *graphView;

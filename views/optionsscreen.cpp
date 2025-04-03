@@ -35,6 +35,19 @@ void OptionsScreen::setupUi()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(16, 16, 16, 16);
     mainLayout->setSpacing(12);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setAlignment(Qt::AlignRight);
+
+    homeButton = new QPushButton("T");
+    homeButton->setStyleSheet(
+        "QPushButton { background-color: transparent; color: #00B2FF; font-size: 20px; font-weight: bold; border: none; }"
+        "QPushButton:pressed { color: #0077CC; }"
+    );
+    homeButton->setFixedSize(40, 40);
+
+    topLayout->addWidget(homeButton);
+    mainLayout->addLayout(topLayout);
     
     // Title
     titleLabel = new QLabel("Options");
@@ -74,7 +87,7 @@ void OptionsScreen::setupUi()
     stopInsulinButton->setStyleSheet(buttonStyle);
     stopInsulinButton->setMinimumHeight(50);
     
-    alertsButton = new QPushButton("Alerts & Reminders");
+    alertsButton = new QPushButton("Alerts and Reminders");
     alertsButton->setStyleSheet(buttonStyle);
     alertsButton->setMinimumHeight(50);
     
@@ -133,6 +146,7 @@ void OptionsScreen::connectSignals()
     connect(historyButton, &QPushButton::clicked, this, &OptionsScreen::onHistoryButtonClicked);
     connect(controlIQButton, &QPushButton::clicked, this, &OptionsScreen::onControlIQButtonClicked);
     connect(securitySettingsButton, &QPushButton::clicked, this, &OptionsScreen::onSecuritySettingsButtonClicked);
+    connect(homeButton, &QPushButton::clicked, this, &OptionsScreen::onHomeButtonClicked);
 }
 
 void OptionsScreen::onBackButtonClicked()
@@ -204,4 +218,8 @@ void OptionsScreen::paintEvent(QPaintEvent * /* event */)
     opt.init(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}
+void OptionsScreen::onHomeButtonClicked()
+{
+    emit homeButtonClicked();
 }

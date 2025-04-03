@@ -38,6 +38,18 @@ void ProfileScreen::setupUi()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(16, 16, 16, 16);
     mainLayout->setSpacing(12);
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setAlignment(Qt::AlignRight);
+
+    homeButton = new QPushButton("T");
+    homeButton->setStyleSheet(
+        "QPushButton { background-color: transparent; color: #00B2FF; font-size: 20px; font-weight: bold; border: none; }"
+        "QPushButton:pressed { color: #0077CC; }"
+    );
+    homeButton->setFixedSize(40, 40);
+
+    topLayout->addWidget(homeButton);
+    mainLayout->addLayout(topLayout);
     
     // Title
     titleLabel = new QLabel("Personal Profiles");
@@ -251,6 +263,7 @@ void ProfileScreen::setupUi()
     connect(profilesList, &QListWidget::currentRowChanged, this, &ProfileScreen::on_profilesList_currentRowChanged);
     connect(saveProfileButton, &QPushButton::clicked, this, &ProfileScreen::on_saveProfileButton_clicked);
     connect(cancelEditButton, &QPushButton::clicked, this, &ProfileScreen::on_cancelEditButton_clicked);
+    connect(homeButton, &QPushButton::clicked, this, &ProfileScreen::on_homeButton_clicked);
 }
 
 void ProfileScreen::showEditForm(bool show)
@@ -544,4 +557,8 @@ void ProfileScreen::paintEvent(QPaintEvent * /* event */)
     opt.init(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}
+void ProfileScreen::on_homeButton_clicked()
+{
+    emit homeButtonClicked();
 }

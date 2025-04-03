@@ -111,18 +111,9 @@ void HomeScreen::setupUi()
     QWidget *iconWidget = new QWidget();
     QHBoxLayout *iconLayout = new QHBoxLayout(iconWidget);
     
-    cgmIcon = new QLabel("Y");
-    cgmIcon->setStyleSheet("color: white; font-weight: bold;");
-    
-    dropIcon = new QLabel("O");
-    dropIcon->setStyleSheet("color: #00B2FF; font-weight: bold;");
-    
-    bluetoothIcon = new QLabel("B");
-    bluetoothIcon->setStyleSheet("color: #00B2FF; font-weight: bold;");
-    
-    iconLayout->addWidget(cgmIcon);
-    iconLayout->addWidget(dropIcon);
-    iconLayout->addWidget(bluetoothIcon);
+    tandemLogoIcon = new QLabel("T");
+    tandemLogoIcon->setStyleSheet("color: #00B2FF; font-size: 20px; font-weight: bold;");
+    iconLayout->addWidget(tandemLogoIcon);
     
     // Insulin indicator
     insulinWidget = new QWidget();
@@ -391,9 +382,7 @@ void HomeScreen::updateFontSizes()
     dateLabel->setStyleSheet(QString("color: white; font-size: %1px;").arg(statusFontSize - 2));
     batteryLabel->setStyleSheet(QString("color: #4CD964; font-size: %1px; font-weight: bold;").arg(statusFontSize - 2));
     insulinLabel->setStyleSheet(QString("color: #00B2FF; font-size: %1px; font-weight: bold;").arg(statusFontSize - 2));
-    cgmIcon->setStyleSheet(QString("color: white; font-size: %1px; font-weight: bold;").arg(statusFontSize));
-    dropIcon->setStyleSheet(QString("color: #00B2FF; font-size: %1px; font-weight: bold;").arg(statusFontSize + 2));
-    bluetoothIcon->setStyleSheet(QString("color: #00B2FF; font-size: %1px; font-weight: bold;").arg(statusFontSize));
+
     
     // Glucose display
     int glucoseFontSize = baseFontSize * 3;

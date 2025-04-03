@@ -30,6 +30,7 @@ public:
     
 signals:
     void backButtonClicked();
+    void homeButtonClicked();
     
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -62,6 +63,7 @@ private:
     QRadioButton *insulinRadio;
     QRadioButton *combinedRadio;
     QPushButton *backButton;
+    QPushButton *homeButton;
     
     void setupUi();
     void connectSignals();

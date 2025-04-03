@@ -43,6 +43,8 @@ public:
 
 signals:
     void backButtonClicked();
+    void homeButtonClicked();
+
     
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -64,6 +66,7 @@ private slots:
     void onCriticalInsulinThresholdChanged(double value);
     void onLowBatteryThresholdChanged(int value);
     void onCriticalBatteryThresholdChanged(int value);
+    void onHomeButtonClicked();
 
 private:
     Ui::AlertsScreen *ui;
@@ -73,6 +76,7 @@ private:
     
     // UI elements
     QTabWidget *tabWidget;
+    QPushButton *homeButton;
     
     // Settings tab
     QWidget *settingsTab;

@@ -44,6 +44,20 @@ void BolusScreen::setupUi()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(16, 16, 16, 16);
     mainLayout->setSpacing(12);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setAlignment(Qt::AlignRight);
+
+    homeButton = new QPushButton("T");
+    homeButton->setStyleSheet(
+        "QPushButton { background-color: transparent; color: #00B2FF; font-size: 20px; font-weight: bold; border: none; }"
+        "QPushButton:pressed { color: #0077CC; }"
+    );
+    homeButton->setFixedSize(40, 40);
+
+    topLayout->addWidget(homeButton);
+    mainLayout->addLayout(topLayout);
+
     
     // Create main title
     titleLabel = new QLabel("Bolus Calculator");
@@ -194,6 +208,7 @@ void BolusScreen::connectSignals()
             this, &BolusScreen::on_deliverButton_clicked);
     connect(backButton, &QPushButton::clicked, 
             this, &BolusScreen::on_backButton_clicked);
+    connect(homeButton, &QPushButton::clicked, this, &BolusScreen::on_homeButton_clicked);
 }
 
 void BolusScreen::updateExtendedBolusVisibility()
@@ -381,4 +396,8 @@ void BolusScreen::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}
+void BolusScreen::on_homeButton_clicked()
+{
+    emit homeButtonClicked();
 }

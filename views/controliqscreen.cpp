@@ -60,6 +60,19 @@ void ControlIQScreen::setupUi()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(16, 16, 16, 16);
     mainLayout->setSpacing(12);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setAlignment(Qt::AlignRight);
+
+    homeButton = new QPushButton("T");
+    homeButton->setStyleSheet(
+        "QPushButton { background-color: transparent; color: #00B2FF; font-size: 20px; font-weight: bold; border: none; }"
+        "QPushButton:pressed { color: #0077CC; }"
+    );
+    homeButton->setFixedSize(40, 40);
+
+    topLayout->addWidget(homeButton);
+    mainLayout->addLayout(topLayout);
     
     // Title
     titleLabel = new QLabel("Control-IQ Settings");
@@ -309,6 +322,8 @@ void ControlIQScreen::connectSignals()
 {
     connect(saveButton, &QPushButton::clicked, this, &ControlIQScreen::saveSettings);
     connect(backButton, &QPushButton::clicked, this, &ControlIQScreen::backButtonClicked);
+    connect(homeButton, &QPushButton::clicked, this, &ControlIQScreen::onHomeButtonClicked);
+
 }
 
 void ControlIQScreen::updateUIFromSettings()
@@ -400,4 +415,8 @@ void ControlIQScreen::paintEvent(QPaintEvent * /* event */)
     opt.init(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
+}
+void ControlIQScreen::onHomeButtonClicked()
+{
+    emit homeButtonClicked();
 }

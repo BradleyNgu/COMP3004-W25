@@ -101,7 +101,7 @@ void TestPanel::setupUi()
     
     // Add tabs to tab widget
     tabWidget->addTab(basicControlsTab, "Basic Controls");
-    tabWidget->addTab(alertsTab, "Alerts & Errors");
+    tabWidget->addTab(alertsTab, "Alerts and Errors");
     tabWidget->addTab(insulinDeliveryTab, "Insulin Delivery");
     tabWidget->addTab(profileTab, "Profile Management");
     tabWidget->addTab(securityTab, "Security");

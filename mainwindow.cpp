@@ -20,7 +20,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       isPoweredOn(false),
-      isLocked(true)
+      isLocked(false)
 {
     // Set window title
     setWindowTitle("t:slim X2 Simulator");

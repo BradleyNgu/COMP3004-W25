@@ -14,6 +14,7 @@
 #include "testpanel.h"
 #include "forceresizable.h"
 #include "views/alertsscreen.h"
+#include <QCoreApplication>
 
 // Constructor with improved resizing approach
 MainWindow::MainWindow(QWidget *parent)
@@ -456,6 +457,8 @@ void MainWindow::powerOff()
     // Show black screen or startup logo
     homeScreen->setEnabled(false);
     stackedWidget->setCurrentIndex(0);
+    QCoreApplication::quit();
+
 }
 
 void MainWindow::savePumpState()

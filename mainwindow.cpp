@@ -83,6 +83,11 @@ void MainWindow::setupUi()
     mainLayout->addWidget(scrollArea);
     
     setCentralWidget(centralWidget);
+
+    sleepOverlay = new QWidget(this);
+    sleepOverlay->setStyleSheet("background-color: rgba(0, 0, 0, 128);");
+    sleepOverlay->setGeometry(this->rect());
+    sleepOverlay->hide();
     
     // Create all screen widgets
     homeScreen = new HomeScreen(this);
@@ -513,6 +518,9 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     if (homeScreen) {
         homeScreen->updateFontSizes();
     }
+    if (sleepOverlay) {
+        sleepOverlay->setGeometry(this->rect());
+    }
 }
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -527,19 +535,25 @@ void MainWindow::enterSleepMode()
 {
     if (simulationTimer) simulationTimer->stop();
     homeScreen->setEnabled(false);
-    stackedWidget->setEnabled(false);  // disable everything
-    setWindowOpacity(0.5);
+    stackedWidget->setEnabled(false);
     isSleeping = true;
+
+    if (sleepOverlay) {
+        sleepOverlay->raise();
+        sleepOverlay->show();
+    }
 }
 
 void MainWindow::exitSleepMode()
 {
-    if (!isSleeping)
-        return;
+    if (!isSleeping) return;
 
     if (simulationTimer && isPoweredOn) simulationTimer->start();
     homeScreen->setEnabled(true);
     stackedWidget->setEnabled(true);
-    setWindowOpacity(1.0);
     isSleeping = false;
+
+    if (sleepOverlay) {
+        sleepOverlay->hide();
+    }
 }

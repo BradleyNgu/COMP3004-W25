@@ -55,6 +55,7 @@ protected:
 private:
     QStackedWidget *stackedWidget;
     QTimer* simulationTimer = nullptr;
+    QWidget *sleepOverlay = nullptr;
     HomeScreen *homeScreen;
     BolusScreen *bolusScreen;
     ProfileScreen *profileScreen;

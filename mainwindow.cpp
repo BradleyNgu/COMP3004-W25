@@ -404,13 +404,10 @@ void MainWindow::handlePowerButtonPressed()
         if (msgBox.clickedButton() == powerOffButton) {
             simulatePowerOff();
         } else if (msgBox.clickedButton() == sleepButton) {
-            // Pause simulation and UI
             enterSleepMode();
-        
-            // Simulate sleep duration
             setWindowOpacity(1.0);
             if (simulationTimer && isPoweredOn) simulationTimer->start();
-            homeScreen->setEnabled(true);
+                homeScreen->setEnabled(true);
             };
         }
     } else {

@@ -169,7 +169,7 @@ void MainWindow::setupPumpController()
     testPanel = new TestPanel(pumpController, this);
     
     // Setup simulation data updates at faster intervals for testing
-    QTimer *simulationTimer = new QTimer(this);
+    simulationTimer = new QTimer(this);
     connect(simulationTimer, &QTimer::timeout, this, [this]() {
         // Only update when running
         if (isPoweredOn) {
@@ -405,18 +405,13 @@ void MainWindow::handlePowerButtonPressed()
             simulatePowerOff();
         } else if (msgBox.clickedButton() == sleepButton) {
             // Pause simulation and UI
-            if (simulationTimer) simulationTimer->stop();
-            homeScreen->setEnabled(false);
-            setWindowOpacity(0.2);
-            std::cout << "Sleeping test message" << std::endl;
-            isSleeping = true;
+            enterSleepMode();
         
             // Simulate sleep duration
-            QTimer::singleShot(3000, this, [this]() {
-                setWindowOpacity(1.0);
-                if (simulationTimer && isPoweredOn) simulationTimer->start();
-                homeScreen->setEnabled(true);
-            });
+            setWindowOpacity(1.0);
+            if (simulationTimer && isPoweredOn) simulationTimer->start();
+            homeScreen->setEnabled(true);
+            };
         }
     } else {
         powerOn();
@@ -542,6 +537,9 @@ void MainWindow::enterSleepMode()
 
 void MainWindow::exitSleepMode()
 {
+    if (!isSleeping)
+        return;
+
     if (simulationTimer && isPoweredOn) simulationTimer->start();
     homeScreen->setEnabled(true);
     stackedWidget->setEnabled(true);

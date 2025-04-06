@@ -406,6 +406,7 @@ void MainWindow::handlePowerButtonPressed()
             if (simulationTimer) simulationTimer->stop();
             homeScreen->setEnabled(false);
             setWindowOpacity(0.2);
+            cout << "Sleeping test message" << endl;
             isSleeping = true;
         
             // Simulate sleep duration

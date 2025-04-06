@@ -15,6 +15,8 @@
 #include "forceresizable.h"
 #include "views/alertsscreen.h"
 #include <QCoreApplication>
+#include <ostream>
+
 
 // Constructor with improved resizing approach
 MainWindow::MainWindow(QWidget *parent)

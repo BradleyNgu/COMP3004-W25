@@ -15,6 +15,8 @@
 #include "forceresizable.h"
 #include "views/alertsscreen.h"
 #include <QCoreApplication>
+#include <iostream>
+
 
 // Constructor with improved resizing approach
 MainWindow::MainWindow(QWidget *parent)
@@ -81,6 +83,11 @@ void MainWindow::setupUi()
     mainLayout->addWidget(scrollArea);
     
     setCentralWidget(centralWidget);
+
+    sleepOverlay = new QWidget(this);
+    sleepOverlay->setStyleSheet("background-color: rgba(0, 0, 0, 128);");
+    sleepOverlay->setGeometry(this->rect());
+    sleepOverlay->hide();
     
     // Create all screen widgets
     homeScreen = new HomeScreen(this);
@@ -167,7 +174,7 @@ void MainWindow::setupPumpController()
     testPanel = new TestPanel(pumpController, this);
     
     // Setup simulation data updates at faster intervals for testing
-    QTimer *simulationTimer = new QTimer(this);
+    simulationTimer = new QTimer(this);
     connect(simulationTimer, &QTimer::timeout, this, [this]() {
         // Only update when running
         if (isPoweredOn) {
@@ -396,22 +403,22 @@ void MainWindow::handlePowerButtonPressed()
         QPushButton *sleepButton = msgBox.addButton("Sleep", QMessageBox::ActionRole);
         QPushButton *powerOffButton = msgBox.addButton("Power Off", QMessageBox::ActionRole);
         msgBox.addButton("Cancel", QMessageBox::RejectRole);
-        
+
         msgBox.exec();
-        
+
         if (msgBox.clickedButton() == powerOffButton) {
             simulatePowerOff();
         } else if (msgBox.clickedButton() == sleepButton) {
-            // Just dim the screen to simulate sleep
-            setWindowOpacity(0.5);
-            QTimer::singleShot(3000, this, [this]() {
-                setWindowOpacity(1.0);
-            });
+            // Enter sleep mode
+            enterSleepMode();
         }
+
+        // Otherwise do nothing (Cancel was clicked)
     } else {
         powerOn();
     }
 }
+
 
 void MainWindow::handlePumpShutdown()
 {
@@ -510,5 +517,43 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     // Update UI elements that depend on window size
     if (homeScreen) {
         homeScreen->updateFontSizes();
+    }
+    if (sleepOverlay) {
+        sleepOverlay->setGeometry(this->rect());
+    }
+}
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (isSleeping) {
+        exitSleepMode();
+    }
+
+    QMainWindow::mousePressEvent(event);
+}
+
+void MainWindow::enterSleepMode()
+{
+    if (simulationTimer) simulationTimer->stop();
+    homeScreen->setEnabled(false);
+    stackedWidget->setEnabled(false);
+    isSleeping = true;
+
+    if (sleepOverlay) {
+        sleepOverlay->raise();
+        sleepOverlay->show();
+    }
+}
+
+void MainWindow::exitSleepMode()
+{
+    if (!isSleeping) return;
+
+    if (simulationTimer && isPoweredOn) simulationTimer->start();
+    homeScreen->setEnabled(true);
+    stackedWidget->setEnabled(true);
+    isSleeping = false;
+
+    if (sleepOverlay) {
+        sleepOverlay->hide();
     }
 }

@@ -50,9 +50,12 @@ public slots:
 protected:
     // Override to ensure proper resizing
     void resizeEvent(QResizeEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     QStackedWidget *stackedWidget;
+    QTimer* simulationTimer = nullptr;
+    QWidget *sleepOverlay = nullptr;
     HomeScreen *homeScreen;
     BolusScreen *bolusScreen;
     ProfileScreen *profileScreen;
@@ -68,12 +71,15 @@ private:
     
     bool isPoweredOn;
     bool isLocked;
+    bool isSleeping = false;
     
     void setupUi();
     void connectSignals();
     void setupPumpController();
     void powerOn();
     void powerOff();
+    void exitSleepMode();
+    void enterSleepMode();
 };
 
 #endif // MAINWINDOW_H

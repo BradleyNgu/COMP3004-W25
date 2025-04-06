@@ -77,6 +77,8 @@ private:
     void setupPumpController();
     void powerOn();
     void powerOff();
+    void exitSleepMode();
+    void enterSleepMode();
 };
 
 #endif // MAINWINDOW_H

@@ -525,12 +525,26 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     if (isSleeping) {
-        // Wake up!
-        setWindowOpacity(1.0);
-        if (simulationTimer && isPoweredOn) simulationTimer->start();
-        homeScreen->setEnabled(true);
-        isSleeping = false;
+        exitSleepMode();
     }
 
     QMainWindow::mousePressEvent(event);
+}
+
+void MainWindow::enterSleepMode()
+{
+    if (simulationTimer) simulationTimer->stop();
+    homeScreen->setEnabled(false);
+    stackedWidget->setEnabled(false);  // disable everything
+    setWindowOpacity(0.5);
+    isSleeping = true;
+}
+
+void MainWindow::exitSleepMode()
+{
+    if (simulationTimer && isPoweredOn) simulationTimer->start();
+    homeScreen->setEnabled(true);
+    stackedWidget->setEnabled(true);
+    setWindowOpacity(1.0);
+    isSleeping = false;
 }

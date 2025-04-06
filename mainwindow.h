@@ -50,6 +50,7 @@ public slots:
 protected:
     // Override to ensure proper resizing
     void resizeEvent(QResizeEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     QStackedWidget *stackedWidget;

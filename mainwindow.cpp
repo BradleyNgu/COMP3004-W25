@@ -402,10 +402,17 @@ void MainWindow::handlePowerButtonPressed()
         if (msgBox.clickedButton() == powerOffButton) {
             simulatePowerOff();
         } else if (msgBox.clickedButton() == sleepButton) {
-            // Just dim the screen to simulate sleep
-            setWindowOpacity(0.5);
+            // Pause simulation and UI
+            if (simulationTimer) simulationTimer->stop();
+            homeScreen->setEnabled(false);
+            setWindowOpacity(0.2);
+            isSleeping = true;
+        
+            // Simulate sleep duration
             QTimer::singleShot(3000, this, [this]() {
                 setWindowOpacity(1.0);
+                if (simulationTimer && isPoweredOn) simulationTimer->start();
+                homeScreen->setEnabled(true);
             });
         }
     } else {
@@ -511,4 +518,16 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     if (homeScreen) {
         homeScreen->updateFontSizes();
     }
+}
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (isSleeping) {
+        // Wake up!
+        setWindowOpacity(1.0);
+        if (simulationTimer && isPoweredOn) simulationTimer->start();
+        homeScreen->setEnabled(true);
+        isSleeping = false;
+    }
+
+    QMainWindow::mousePressEvent(event);
 }

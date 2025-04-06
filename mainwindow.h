@@ -53,6 +53,7 @@ protected:
 
 private:
     QStackedWidget *stackedWidget;
+    QTimer* simulationTimer = nullptr;
     HomeScreen *homeScreen;
     BolusScreen *bolusScreen;
     ProfileScreen *profileScreen;
@@ -68,6 +69,7 @@ private:
     
     bool isPoweredOn;
     bool isLocked;
+    bool isSleeping = false;
     
     void setupUi();
     void connectSignals();

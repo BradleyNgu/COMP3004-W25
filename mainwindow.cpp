@@ -15,7 +15,7 @@
 #include "forceresizable.h"
 #include "views/alertsscreen.h"
 #include <QCoreApplication>
-#include <ostream>
+#include <iostream>
 
 
 // Constructor with improved resizing approach

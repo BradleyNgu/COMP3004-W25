@@ -85,7 +85,7 @@ void MainWindow::setupUi()
     setCentralWidget(centralWidget);
 
     sleepOverlay = new QWidget(this);
-    sleepOverlay->setStyleSheet("background-color: rgba(0, 0, 0, 128);");
+    sleepOverlay->setStyleSheet("background-color: rgba(0, 0, 0, 255);");
     sleepOverlay->setGeometry(this->rect());
     sleepOverlay->hide();
     

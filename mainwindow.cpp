@@ -412,7 +412,6 @@ void MainWindow::handlePowerButtonPressed()
         }
     } else {
         powerOn();
-    }
 }
 
 void MainWindow::handlePumpShutdown()

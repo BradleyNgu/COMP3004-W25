@@ -398,21 +398,22 @@ void MainWindow::handlePowerButtonPressed()
         QPushButton *sleepButton = msgBox.addButton("Sleep", QMessageBox::ActionRole);
         QPushButton *powerOffButton = msgBox.addButton("Power Off", QMessageBox::ActionRole);
         msgBox.addButton("Cancel", QMessageBox::RejectRole);
-        
+
         msgBox.exec();
-        
+
         if (msgBox.clickedButton() == powerOffButton) {
             simulatePowerOff();
         } else if (msgBox.clickedButton() == sleepButton) {
+            // Enter sleep mode
             enterSleepMode();
-            setWindowOpacity(1.0);
-            if (simulationTimer && isPoweredOn) simulationTimer->start();
-                homeScreen->setEnabled(true);
-            };
         }
+
+        // Otherwise do nothing (Cancel was clicked)
     } else {
         powerOn();
+    }
 }
+
 
 void MainWindow::handlePumpShutdown()
 {

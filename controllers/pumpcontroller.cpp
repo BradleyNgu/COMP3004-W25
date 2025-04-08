@@ -918,6 +918,9 @@ void PumpController::loadPumpState()
     if (QDir(dataPath).exists()) {
         loadData(dataPath);
     }
+    //fix for battery reset
+    pumpModel->updateBatteryLevel(100);
+
 }
 
 ErrorHandler* PumpController::getErrorHandler() const

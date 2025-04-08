@@ -22,7 +22,8 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       isPoweredOn(false),
-      isLocked(false)
+      isLocked(false),
+      isSleeping(false)
 {
     // Set window title
     setWindowTitle("t:slim X2 Simulator");
@@ -177,11 +178,26 @@ void MainWindow::setupPumpController()
     simulationTimer = new QTimer(this);
     connect(simulationTimer, &QTimer::timeout, this, [this]() {
         // Only update when running
-        if (isPoweredOn) {
+        if (isPoweredOn && !isSleeping) {
             homeScreen->updateAllData(pumpController);
         }
     });
     simulationTimer->start(1000); // Update every second for more responsive UI
+    
+    // Setup a separate timer for background updates even when in sleep mode
+    backgroundTimer = new QTimer(this);
+    connect(backgroundTimer, &QTimer::timeout, this, [this]() {
+        if (isPoweredOn) {
+            // Update critical data even in sleep mode
+            if (isSleeping && stackedWidget->currentWidget() == homeScreen) {
+                // Force insulin level to update even in sleep mode
+                double insulinLevel = pumpController->getInsulinRemaining();
+                // Store the value for when we wake up
+                homeScreen->updateInsulinRemaining(insulinLevel);
+            }
+        }
+    });
+    backgroundTimer->start(5000); // Every 5 seconds for background updates
 }
 
 void MainWindow::connectSignals()
@@ -318,7 +334,11 @@ void MainWindow::showHomeScreen()
     
     // Otherwise show home screen as usual
     stackedWidget->setCurrentWidget(homeScreen);
-    homeScreen->updateAllData(pumpController);
+    
+    // Ensure full refresh of data
+    if (!isSleeping) {
+        homeScreen->updateAllData(pumpController);
+    }
 }
 
 void MainWindow::showBolusScreen()
@@ -452,8 +472,24 @@ void MainWindow::powerOn()
     pumpController->startPump();
     homeScreen->setEnabled(true);
     
+    // Ensure the simulation timer is running
+    if (simulationTimer && !simulationTimer->isActive()) {
+        simulationTimer->start();
+    }
+    
+    // Ensure the background timer is running
+    if (backgroundTimer && !backgroundTimer->isActive()) {
+        backgroundTimer->start();
+    }
+    
     // Check PIN lock instead of directly showing home screen
     checkPinLock();
+    
+    // Ensure we're not in sleep mode
+    isSleeping = false;
+    if (sleepOverlay) {
+        sleepOverlay->hide();
+    }
 }
 
 void MainWindow::powerOff()
@@ -461,11 +497,21 @@ void MainWindow::powerOff()
     isPoweredOn = false;
     pumpController->stopPump();
     
+    // Stop the timers
+    if (simulationTimer && simulationTimer->isActive()) {
+        simulationTimer->stop();
+    }
+    
+    if (backgroundTimer && backgroundTimer->isActive()) {
+        backgroundTimer->stop();
+    }
+    
     // Show black screen or startup logo
     homeScreen->setEnabled(false);
     stackedWidget->setCurrentIndex(0);
+    
+    // Actually quit the application when powered off
     QCoreApplication::quit();
-
 }
 
 void MainWindow::savePumpState()
@@ -502,7 +548,7 @@ void MainWindow::loadPumpState()
     if (pumpController->loadData(dataPath)) {
         QMessageBox::information(this, "Load Successful", "Pump state loaded successfully.");
         
-        // Update UI
+        // Update UI - force a full refresh
         homeScreen->updateAllData(pumpController);
     } else {
         QMessageBox::warning(this, "Load Failed", "Failed to load pump state.");
@@ -518,10 +564,13 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     if (homeScreen) {
         homeScreen->updateFontSizes();
     }
+    
+    // Update overlay size
     if (sleepOverlay) {
         sleepOverlay->setGeometry(this->rect());
     }
 }
+
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     if (isSleeping) {
@@ -533,10 +582,22 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
 void MainWindow::enterSleepMode()
 {
-    if (simulationTimer) simulationTimer->stop();
+    if (isSleeping) return;
+    
+    isSleeping = true;
+    
+    // Stop the main UI update timer
+    if (simulationTimer && simulationTimer->isActive()) {
+        simulationTimer->stop();
+    }
+    
+    // Make sure background timer is running
+    if (backgroundTimer && !backgroundTimer->isActive()) {
+        backgroundTimer->start();
+    }
+    
     homeScreen->setEnabled(false);
     stackedWidget->setEnabled(false);
-    isSleeping = true;
 
     if (sleepOverlay) {
         sleepOverlay->raise();
@@ -548,12 +609,22 @@ void MainWindow::exitSleepMode()
 {
     if (!isSleeping) return;
 
-    if (simulationTimer && isPoweredOn) simulationTimer->start();
+    isSleeping = false;
+    
+    // Start the UI update timer
+    if (simulationTimer && !simulationTimer->isActive() && isPoweredOn) {
+        simulationTimer->start();
+    }
+    
     homeScreen->setEnabled(true);
     stackedWidget->setEnabled(true);
-    isSleeping = false;
 
     if (sleepOverlay) {
         sleepOverlay->hide();
+    }
+    
+    // Force update the UI to show the latest data
+    if (isPoweredOn && stackedWidget->currentWidget() == homeScreen) {
+        homeScreen->updateAllData(pumpController);
     }
 }

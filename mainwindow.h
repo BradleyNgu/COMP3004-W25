@@ -4,8 +4,7 @@
 #include <QMainWindow>
 #include <QStackedWidget>
 #include <QResizeEvent>
-#include <QEvent>
-#include <QScrollArea>
+#include <QMouseEvent>
 #include "controllers/pumpcontroller.h"
 #include "views/homescreen.h"
 #include "views/bolusscreen.h"
@@ -13,22 +12,32 @@
 #include "views/optionsscreen.h"
 #include "views/historyscreen.h"
 #include "views/controliqscreen.h"
-#include "views/alertsscreen.h"
 #include "views/pinlockscreen.h"
 #include "views/pinsettingsscreen.h"
-#include "testpanel.h"
-#include "forceresizable.h"
+
+// Forward declarations
+class TestPanel;
+class ForceResizable;
+class AlertsScreen;  // Add this forward declaration
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+    
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-public slots:
+    
+    // Navigation methods
     void navigateToScreen(const QString &screenName);
+    
+protected:
+    // Override resize event to handle custom resizing behavior
+    void resizeEvent(QResizeEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    
+private slots:
+    // Screen navigation
     void showHomeScreen();
     void showBolusScreen();
     void showProfileScreen();
@@ -38,24 +47,31 @@ public slots:
     void showAlertsScreen();
     void showPinLockScreen();
     void showPinSettingsScreen();
-    void checkPinLock();
+    
+    // Utility functions
     void showTestPanel();
     void handlePowerButtonPressed();
     void handlePumpShutdown();
     void simulatePowerOff();
-    void setScaleFactor(double factor);
+    void powerOn();
+    void powerOff();
     void savePumpState();
     void loadPumpState();
-
-protected:
-    // Override to ensure proper resizing
-    void resizeEvent(QResizeEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
-
+    void setScaleFactor(double factor);
+    void checkPinLock();
+    
+    // Sleep mode functions
+    void enterSleepMode();
+    void exitSleepMode();
+    
 private:
+    // Setup methods
+    void setupUi();
+    void setupPumpController();
+    void connectSignals();
+    
+    // UI Components
     QStackedWidget *stackedWidget;
-    QTimer* simulationTimer = nullptr;
-    QWidget *sleepOverlay = nullptr;
     HomeScreen *homeScreen;
     BolusScreen *bolusScreen;
     ProfileScreen *profileScreen;
@@ -65,21 +81,23 @@ private:
     AlertsScreen *alertsScreen;
     PinLockScreen *pinLockScreen;
     PinSettingsScreen *pinSettingsScreen;
+    
+    // Controllers
     PumpController *pumpController;
     TestPanel *testPanel;
     ForceResizable *resizableHelper;
     
+    // State variables
     bool isPoweredOn;
     bool isLocked;
-    bool isSleeping = false;
+    bool isSleeping;
     
-    void setupUi();
-    void connectSignals();
-    void setupPumpController();
-    void powerOn();
-    void powerOff();
-    void exitSleepMode();
-    void enterSleepMode();
+    // Timer for simulation updates
+    QTimer *simulationTimer;
+    QTimer *backgroundTimer;
+    
+    // Sleep mode overlay
+    QWidget *sleepOverlay;
 };
 
 #endif // MAINWINDOW_H
